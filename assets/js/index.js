@@ -17,12 +17,13 @@ $(function () {
 });
 function getUserInof() {
   $.ajax({
+    method: "GET",
     url: "/my/userinfo",
     // headers: {
     //   Authorization: localStorage.getItem("token") || "",
     // },
     success: function (res) {
-      if (res.starus !== 0) {
+      if (res.status !== 0) {
         return layui.layer.msg(res.message);
       }
       renderAvatar(res.data);
@@ -33,11 +34,11 @@ function renderAvatar(user) {
   var name = user.nickname || user.username;
   $("#welcome").html("欢迎&nbsp;&nbsp;" + name);
   if (user.user_pic !== null) {
-    $(".layui-nav-img").show().attr("src", user.user_pic);
+    $(".layui-nav-img").attr("src", user.user_pic).show();
     $(".user-avatar").hide();
   } else {
     $(".layui-nav-img").hide();
     var text = name[0].toUpperCase();
-    $(".user-avatar").show().html(text);
+    $(".user-avatar").html(text).show();
   }
 }
